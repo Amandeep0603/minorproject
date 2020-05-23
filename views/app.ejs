@@ -1,0 +1,32 @@
+<%- include('header'); -%>
+    <div class="box" id="heading">
+        <h1><%= ListTitle %></h1>
+    </div>
+    <div class="box">
+       <h2>Make your TODO list for today</h2>
+        <h3>1)click on + to add item</h3>
+        <h3>2)click on - to delete item</h3>
+        <h3>3)click checkbox to temporarily mark a item </h3>
+
+
+        <% newListItems.forEach(function(item){   %>
+
+          <div class="item">
+            <input type="checkbox">
+            <p>
+              <%= item.name %>
+              <%= item.createdAt ? (new Date(item.createdAt).getDate() +'-'+ new Date(item.createdAt).getMonth() + '-'+ new Date(item.createdAt).getFullYear()) : '' %>
+              </p>
+              <form class="item" action="/delete" method="post">
+                <button type="submit" name="id" value=<%=item._id%>>-</button>
+              </form>
+
+          </div>
+        <% }) %>
+
+  <form class="item" action="/add" method="post">
+    <input type="text" name="newItem" placeholder="newItem" autocomplete="off">
+    <button type="submit" name="list" value=<%=ListTitle%>>+</button>
+  </form>
+    </div>
+  <%- include('footer'); -%>
